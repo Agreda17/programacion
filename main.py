@@ -1,26 +1,29 @@
-def find_divisors(number):
-    divisors = []
-    for i in range(1, int(number**0.5) + 1):
-        if number % i == 0:
-            divisors.append(i)
-            if i != number // i:
-                divisors.append(number // i)
+class PalindromoChecker:
+    def __init__(self, palabra):
+        self.palabra = palabra.lower().replace(" ", "")
 
-    divisors.sort()
-    return divisors
+    def es_palindromo(self):
+        return self.palabra == self.palabra[::-1]
 
-def get_positive_integer_input():
+def obtener_palabra_valida():
     while True:
-        try:
-            number = int(input("Ingrese un número entero positivo: "))
-            if number <= 0:
-                print("El número debe ser mayor a 0.")
-            else:
-                return number
-        except ValueError:
-            print("No se permiten caracteres especiales ni letras. Por favor ingresa un numero entero positivo: ")
+        palabra = input("Ingrese una palabra: ")
+        palabra = palabra.strip()
+        if not palabra:
+            print(" No Debes ingresar nuemros.")
+        elif not palabra.isalpha():
+            print(" La palabra debe contener solo letras.")
+        else:
+            return palabra
+
+def main():
+    palabra = obtener_palabra_valida()
+    checker = PalindromoChecker(palabra)
+
+    if checker.es_palindromo():
+        print(f"La palabra '{palabra}' es un palíndromo.")
+    else:
+        print(f"La palabra '{palabra}' no es un palíndromo.")
 
 if __name__ == "__main__":
-    number = get_positive_integer_input()
-    result = find_divisors(number)
-    print(f"Los divisores de {number} son: {result}")
+    main()
